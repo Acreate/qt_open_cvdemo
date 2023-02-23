@@ -47,7 +47,6 @@ function(get_current_path_dirs out_list check_path_dir)
 endfunction()
 
 
-set(out_path_list "123")
 set(sub_path_list)
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src)
 foreach(out_dir ${out_path_list})
