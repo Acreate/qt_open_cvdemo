@@ -26,16 +26,8 @@ void MainWindow::getPluginsList( ) {
 				ui->filtersList->addItem(filter.fileName());
 				pluginLoader.unload();// we can unload for now
 				qDebug() << "发现插件 : " << absoluteFilePath;
-			}/*else {
-				QMessageBox::warning(this,
-					tr("Warning"),
-					QString(tr("%1 虽然它是一个库，但并不是一个插件")).arg(filter.fileName()));
-			}*/
-		}/*else {
-			QMessageBox::warning(this,
-				tr("Warning"),
-				QString(tr("%1 它甚至不是一个库！")).arg(filter.fileName()));
-		}*/
+			}
+		}
 	}
 
 	if( ui->filtersList->count() <= 0 ) {
@@ -73,27 +65,50 @@ void MainWindow::on_filterButton_pressed( ) {
 		openCVInterface::CvPluginInterface *plugin = dynamic_cast<openCVInterface::CvPluginInterface *>(pluginLoader.instance());
 		if( plugin ) {
 			if( QFile::exists(ui->inputImgEdit->text()) ) {
-				using namespace cv;
-				Mat inputImage, outputImage;
-				inputImage = imread(ui->inputImgEdit->text().toStdString());
-				// 拷贝，接下来不会影响到任何图像操作
-				Mat clone = inputImage.clone();
-				// 引用某一块域
-				Mat roi(clone, Rect(500, 138, 65, 65));
-				// 对域进行设置(全部填充为 0)
-				roi = Scalar(0);
-
-				// 对中间设置一个加号
-				int rows = clone.rows / 2;
-				int cols = clone.cols / 2;
-				Mat centralRows = clone.rowRange(rows - 10, rows + 10);
-				Mat centralColums = clone.colRange(cols - 10, cols + 10);
-				centralRows = Scalar(255 / 2);
-				centralColums = Scalar(255 / 4);
+				cv::Mat inputImage, outputImage;
+				inputImage = cv::imread(ui->inputImgEdit->text().toStdString());
 				plugin->processImage(inputImage, outputImage);
+
 				imshow(tr("Filtered Image").toStdString(), outputImage);
-				imshow(tr("clone Image").toStdString(), clone);
-				imshow(tr("roi Image").toStdString(), roi);
+				// 拷贝，接下来不会影响到任何图像操作
+				cv::Mat image = inputImage.clone();
+				cv::Mat centralRow = image.rowRange(image.rows / 2 - 10, image.rows / 2 + 10);
+				cv::Size parentSize;
+				cv::Point offset;
+				centralRow.locateROI(parentSize, offset);
+				int parentWidth = parentSize.width;
+				int parentHeight = parentSize.height;
+				int x = offset.x;
+				int y = offset.y;
+				// 常规遍历
+				for( int i = 0; i < image.rows; ++i )
+					for( int j = 0; j < image.cols; ++j )
+						image.at<cv::Vec3b>(i, j) /= 5;
+				imshow(tr(" /= 5").toStdString(), image);
+
+				// 迭代器遍历
+				image = inputImage.clone();
+				cv::MatIterator_<cv::Vec3b> begin = image.begin<cv::Vec3b>(), end = image.end<cv::Vec3b>();
+				for( ; begin != end; ++begin )
+					*begin *= 5;
+				imshow(tr("*= 5;").toStdString(), image);
+
+				// 函数遍历
+				image = inputImage.clone();
+				image.forEach<cv::Vec3b>([]( cv::Vec3b &p, const int * ) {
+					p /= 2.5;
+				});
+				imshow(tr(" /= 2.5").toStdString(), image);
+
+				// 直接运算
+				image = inputImage.clone();
+				image *= 20;
+				imshow(tr("*= 20").toStdString(), image);
+
+				// 旋转
+				image = inputImage.clone();
+				image = image.t();
+				imshow(tr("t()").toStdString(), image);
 			} else {
 				QMessageBox::warning(this, tr("Warning"), QString(tr("Make sure %1 exists.")).arg(ui->inputImgEdit->text()));
 			}

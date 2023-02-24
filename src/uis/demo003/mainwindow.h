@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow {
 
 public:
 	explicit MainWindow( QWidget *parent = 0 );
-	~MainWindow( );
+	~MainWindow( ) override;
 
 private slots:
 	void on_inputImgButton_pressed( );
