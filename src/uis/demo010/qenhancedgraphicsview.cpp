@@ -116,43 +116,7 @@ void QEnhancedGraphicsView::mousePressEvent( QMouseEvent *event ) {
 
 		menu.exec(event->globalPos());
 		event->accept();
-	} else if( event->button() == Qt::LeftButton ) {
-
-		QGraphicsRectItem *item = new QGraphicsRectItem(0, 0, 100, 100);
-		item->setPos(50, 400);
-		QGraphicsScene *scene = this->scene();
-		QGraphicsRectItem *parentItem = new QGraphicsRectItem(0, 0, 320, 240);
-		parentItem->setPos(300, 50);
-		QGraphicsRectItem *childItem1 = new QGraphicsRectItem(0, 0, 50, 50, parentItem);
-		childItem1->setPos(50, 50);
-		QGraphicsRectItem *childItem2 = new QGraphicsRectItem(0, 0, 75, 75, parentItem);
-		childItem2->setPos(150, 75);
-
-		scene->addItem(item);
-		scene->addItem(parentItem);
-		qDebug() << item->mapFromItem(childItem1, 0, 0);
-		qDebug() << item->mapToItem(childItem1, 0, 0);
-
-		qDebug() << childItem1->mapFromScene(0, 0);
-		qDebug() << childItem1->mapToScene(0, 0);
-
-		qDebug() << childItem2->mapFromParent(0, 0);
-		qDebug() << childItem2->mapToParent(0, 0);
-
-		qDebug() << item->mapRectFromItem(childItem1, childItem1->rect());
-		qDebug() << item->mapRectToItem(childItem1, childItem1->rect());
-
-		qDebug() << childItem1->mapRectFromScene(0, 0, 25, 25);
-		qDebug() << childItem1->mapRectToScene(0, 0, 25, 25);
-
-		qDebug() << childItem2->mapRectFromParent(0, 0, 30, 30);
-		qDebug() << childItem2->mapRectToParent(0, 0, 25, 25);
-		scene->removeItem(item);
-		scene->removeItem(parentItem);
-		delete item;
-		delete parentItem;
-
-	} else {
+	}  else {
 		QGraphicsView::mousePressEvent(event);
 	}
 }
