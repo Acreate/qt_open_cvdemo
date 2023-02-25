@@ -1,4 +1,4 @@
-#include "qenhancedgraphicsview.h"
+﻿#include "qenhancedgraphicsview.h"
 #include <QPoint>
 
 QEnhancedGraphicsView::QEnhancedGraphicsView( QWidget *parent )
@@ -28,9 +28,13 @@ void QEnhancedGraphicsView::wheelEvent( QWheelEvent *event ) {
 
 void QEnhancedGraphicsView::mousePressEvent( QMouseEvent *event ) {
 	if( event->button() == Qt::RightButton ) {
-		QGraphicsRectItem *graphicsRectItem = new QGraphicsRectItem(0, 0, width(), height());
-		scene()->addItem(graphicsRectItem);
-		fromScene = mapFromGlobal(cursor().pos());
+		QGraphicsScene *graphicsScene = scene();
+		if( graphicsRectItem == nullptr ) {
+			graphicsRectItem = new QGraphicsRectItem(0, 0, width(), height());
+			graphicsScene->addItem(graphicsRectItem);
+		}
+		QPoint point = event->pos();
+		fromScene = mapToScene(point);
 		QMenu menu;
 		QAction *clearAllAction = menu.addAction("Clear All");
 		connect(clearAllAction,
@@ -119,11 +123,14 @@ void QEnhancedGraphicsView::mousePressEvent( QMouseEvent *event ) {
 
 void QEnhancedGraphicsView::clearAll( bool ) {
 	scene()->clear();
+	graphicsRectItem = nullptr;
 }
 
 void QEnhancedGraphicsView::clearSelected( bool ) {
 	while( scene()->selectedItems().count() > 0 ) {
 		QGraphicsItem *graphicsItem = scene()->selectedItems().at(0);
+		if( graphicsRectItem == graphicsItem )
+			graphicsRectItem = nullptr;
 		scene()->selectedItems().removeAt(0);
 		delete graphicsItem;
 	}

@@ -43,8 +43,8 @@ private slots:
 
 private:
 	QPointF sceneMousePos;
-	QPoint fromScene;
-
+	QPointF fromScene;
+	QGraphicsRectItem *graphicsRectItem = nullptr;
 };
 
 #endif // QENHANCEDGRAPHICSVIEW_H
