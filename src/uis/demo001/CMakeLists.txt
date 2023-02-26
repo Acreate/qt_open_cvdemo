@@ -61,23 +61,19 @@ set(opencvTarget $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 if(APPLE)
   set(executable_path "$<TARGET_FILE_NAME:${MY_APP}>.app")
 else()
-  set(executable_path "\${QT_DEPLOY_BIN_DIR}/$<TARGET_FILE_NAME:${MY_APP}>")
+  set(executable_path "${CMAKE_INSTALL_PREFIX}/$<TARGET_FILE_NAME:${MY_APP}>")
 endif()
 set(deploy_script "${CMAKE_CURRENT_BINARY_DIR}/deploy_${MY_APP}.cmake")
 
 file(GENERATE OUTPUT ${deploy_script} CONTENT "
+message(\"=================\")
+message(\"============	> 执行 : ${executable_path}\")
+message(\"=================\")
 include(\"${QT_DEPLOY_SUPPORT}\")
 qt_deploy_runtime_dependencies(
     EXECUTABLE \"${executable_path}\"
     PLUGINS_DIR .
 )
-message(\"=========== out msg ===========\")
-message(\"============= QT_DEPLOY_BIN_DIR => \"\${QT_DEPLOY_BIN_DIR})
-message(\"============= CMAKE_INSTALL_BINDIR => \"\${CMAKE_INSTALL_BINDIR})
-message(\"============= CMAKE_INSTALL_LIBDIR => \"\${CMAKE_INSTALL_LIBDIR})
-message(\"============= CMAKE_INSTALL_PREFIX => \"\${CMAKE_INSTALL_PREFIX})
-message(\"=========== out msg ===========\")
-
 execute_process(
 	# opencv DLL 复制
     COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${opencv}\" \"${CMAKE_INSTALL_PREFIX}\"
