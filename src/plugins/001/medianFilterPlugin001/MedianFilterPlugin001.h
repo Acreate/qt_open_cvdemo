@@ -3,7 +3,7 @@
 #pragma once
 
 #include "MedianFilterPlugin001_export.h"
-#include "CvPluginInterface001.h"
+#include <OpenCVInterface001.h>
 
 namespace openCVInterface {
     class MEDIANFILTERPLUGIN001_EXPORT MedianFilterPlugin001 : public QObject, public CvPluginInterface001 {

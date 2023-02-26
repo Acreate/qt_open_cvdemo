@@ -9,13 +9,6 @@ message("============ ${CURRENT_FOLDER}")
 include_directories(../libs/openCVInterface001) 
 
 
-FIND_PACKAGE( Qt${QT_VERSION_MAJOR}  COMPONENTS Widgets REQUIRED )
-FIND_PACKAGE( Qt${QT_VERSION_MAJOR}  COMPONENTS Gui REQUIRED )
-FIND_PACKAGE( Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED )
-
-FIND_PACKAGE(OpenCV REQUIRED)
-
-include_directories(${OpenCV_INCLUDE_DIRS}) 
 
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui")

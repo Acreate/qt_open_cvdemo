@@ -10,21 +10,18 @@ SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plu
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/ )
 
 
-include_directories(../openCVInterface001) 
+
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui" )
 
 add_library(${PROJECT_NAME} SHARED ${SRC_LIST})
-add_dependencies(${PROJECT_NAME}  openCVInterface001)
 target_link_libraries(
 	${PROJECT_NAME} 
 	PRIVATE 
 		Qt${QT_VERSION_MAJOR}::Core
 		Qt${QT_VERSION_MAJOR}::Widgets
-		openCVInterface001
 		${OpenCV_LIBS}
 )
-
 
 STRING(SUBSTRING "${PROJECT_NAME}" 0 1 exportFileStartName)
 STRING(SUBSTRING "${PROJECT_NAME}" 1 -1 exportFileName)

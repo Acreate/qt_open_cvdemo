@@ -10,7 +10,9 @@ SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plu
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/ )
 
 
-include_directories(../openCVInterface001) 
+## 插件目录
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../openCVInterface001) 
+
 
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui" )

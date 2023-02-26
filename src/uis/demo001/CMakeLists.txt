@@ -6,10 +6,9 @@ project(${prject_name}  VERSION 0.1 LANGUAGES CXX)
 message("============ ${CURRENT_FOLDER}")
 
 
-## 添加 opencv 头文件
-include_directories(../libs/openCVInterface) 
 
-
+## 插件的头文件
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../plugins/001/openCVInterface001) 
 
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui")

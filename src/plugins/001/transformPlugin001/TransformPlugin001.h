@@ -1,7 +1,7 @@
 #ifndef TRANSFORM_PLUGIN_H
 #define TRANSFORM_PLUGIN_H
 #include "TransformPlugin001_export.h"
-#include "CvPluginInterface001.h"
+#include <OpenCVInterface001.h>
 #include <QObject>
 #include <QtMath>
 

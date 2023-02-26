@@ -2,7 +2,7 @@
 #define COLOR_PLUGIN_H
 
 #include "ColorPlugin001_export.h"
-#include <CvPluginInterface001.h>
+#include <OpenCVInterface001.h>
 
 #include <QtCore/qglobal.h>
 

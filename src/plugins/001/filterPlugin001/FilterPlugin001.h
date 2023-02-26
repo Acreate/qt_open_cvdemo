@@ -2,7 +2,7 @@
 #define FILTER_PLUGIN_H
 
 #include <QtCore/qglobal.h>
-#include "CvPluginInterface001.h"
+#include <OpenCVInterface001.h>
 #include "FilterPlugin001_export.h"
 #include <QObject>
 #include <QSpinBox>

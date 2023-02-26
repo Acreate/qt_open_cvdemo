@@ -35,18 +35,9 @@ SET( CMAKE_AUTORCC ON )
 
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/uis "CMakeLists.txt")
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/libs "CMakeLists.txt")
+get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/plugins/001 "CMakeLists.txt")
 foreach(out_dir ${out_path_list})
 	string(REPLACE ${CMAKE_SOURCE_DIR}/ "./" out_path ${out_dir})
 	message(STATUS "正在添加路径 :\t" ${out_path})
 	ADD_SUBDIRECTORY(${out_path})
 endforeach()
-
-
-message("CMAKE_RUNTIME_OUTPUT_DIRECTORY = " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-message("CMAKE_LIBRARY_OUTPUT_DIRECTORY = " ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-
-message("CMAKE_INSTALL_BINDIR = " ${CMAKE_INSTALL_BINDIR})
-message("CMAKE_INSTALL_LIBDIR = " ${CMAKE_INSTALL_LIBDIR})
-
-message("CMAKE_INSTALL_PREFIX = " ${CMAKE_INSTALL_PREFIX})
-message("EXECUTABLE_OUTPUT_PATH = " ${EXECUTABLE_OUTPUT_PATH})

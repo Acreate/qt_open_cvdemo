@@ -1,7 +1,7 @@
 #ifndef SEGMENTATION_PLUGIN_H
 #define SEGMENTATION_PLUGIN_H
 
-#include "CvPluginInterface001.h"
+#include <OpenCVInterface001.h>
 #include "SegmentationPlugin001_export.h"
 
 namespace Ui {
