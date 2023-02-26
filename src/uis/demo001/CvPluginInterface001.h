@@ -7,15 +7,15 @@
 #include <QString>
 
 namespace openCVInterface {
-	class OPENCVINTERFACE_EXPORT CvPluginInterface {
+	class OPENCVINTERFACE_EXPORT CvPluginInterface001 {
 	public:
-		virtual ~CvPluginInterface( ) = default;
+		virtual ~CvPluginInterface001( ) = default;
 		virtual QString description( ) = 0;
 		virtual void processImage( const cv::Mat &inputImage, cv::Mat &outputImage ) = 0;
 	};
 }
 
 #define CVPLUGININTERFACE_IID "com.amin.cvplugininterfce"
-Q_DECLARE_INTERFACE(openCVInterface::CvPluginInterface, CVPLUGININTERFACE_IID)
+Q_DECLARE_INTERFACE(openCVInterface::CvPluginInterface001, CVPLUGININTERFACE_IID)
 
 #endif // CVPLUGININTERFACE_H_H_HEAD__FILE__

@@ -15,7 +15,12 @@ SET( Qt6_DIR "${DEPLOY_QT_HOME}/lib/cmake/Qt6" )
 SET( Qt6CoreTools_DIR "${DEPLOY_QT_HOME}/lib/cmake/Qt6CoreTools")
 SET( Qt6GuiTools_DIR "${DEPLOY_QT_HOME}/lib/cmake/Qt6GuiTools" )
 
+FIND_PACKAGE( Qt6 REQUIRED COMPONENTS Core Widgets Gui )
+
 SET( OpenCV_DIR "C:/libs/opencv/build/")
+
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS}) 
 
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR} )
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR} )
@@ -27,11 +32,6 @@ SET( EXECUTABLE_OUTPUT_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} )
 SET( CMAKE_AUTOUIC ON )
 SET( CMAKE_AUTOMOC ON )
 SET( CMAKE_AUTORCC ON )
-
-## 添加 cv 包
-FIND_PACKAGE(OpenCV REQUIRED)
-## 包含 cv 头文件
-include_directories(${OpenCV_INCLUDE_DIRS}) 
 
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/uis "CMakeLists.txt")
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/libs "CMakeLists.txt")

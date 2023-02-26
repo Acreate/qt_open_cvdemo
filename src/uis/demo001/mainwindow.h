@@ -8,7 +8,7 @@
 #include <QPluginLoader>
 #include <QFileInfoList>
 #include "opencv2/opencv.hpp"
-#include "CvPluginInterface.h"
+#include "CvPluginInterface001.h"
 
 namespace Ui {
 	class MainWindow;
