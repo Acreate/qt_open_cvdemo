@@ -3,11 +3,11 @@
 #pragma once
 #include <qobject.h>
 #include <opencv2/opencv.hpp>
-#include "OpenCVInterface_export.h"
+#include "OpenCVInterface001_export.h"
 #include <QString>
 
 namespace openCVInterface {
-	class OPENCVINTERFACE_EXPORT CvPluginInterface {
+	class OPENCVINTERFACE001_EXPORT CvPluginInterface {
 	public:
 		virtual ~CvPluginInterface( ) = default;
 		virtual QString description( ) = 0;

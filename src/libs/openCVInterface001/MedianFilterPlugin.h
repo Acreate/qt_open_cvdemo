@@ -6,7 +6,7 @@
 #include "CvPluginInterface.h"
 
 namespace openCVInterface {
-	class OPENCVINTERFACE_EXPORT MedianFilterPlugin : public QObject, public CvPluginInterface {
+	class OPENCVINTERFACE001_EXPORT MedianFilterPlugin : public QObject, public CvPluginInterface {
 		Q_OBJECT
 		Q_PLUGIN_METADATA(IID  "com.amin.cvplugininterfce")
 		Q_INTERFACES(openCVInterface::CvPluginInterface)
