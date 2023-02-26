@@ -29,13 +29,14 @@ else()
 	endif()
 endif()
 
-add_dependencies(${PROJECT_NAME}  openCVInterface001)
 target_link_libraries(
 	${PROJECT_NAME} 
 PRIVATE 
 	Qt${QT_VERSION_MAJOR}::Widgets
+	Qt${QT_VERSION_MAJOR}::Core
 	${OpenCV_LIBS}
 )
+add_dependencies(${PROJECT_NAME}  openCVInterface001)
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
 	MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

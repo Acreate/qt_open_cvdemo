@@ -2,20 +2,19 @@
 #define CVPLUGININTERFACE_H_H_HEAD__FILE__
 #pragma once
 #include <qobject.h>
+#include "OpenCVInterface001_export.h"
 #include <opencv2/opencv.hpp>
 #include <QString>
 
 namespace openCVInterface {
-	class CvPluginInterface001 {
-	public:
-		virtual ~CvPluginInterface001( ) { }
+    class OPENCVINTERFACE001_EXPORT CvPluginInterface001 {
+    public:
+        virtual ~CvPluginInterface001( ) = default;
 
-		virtual QString description( ) {
-			return "";
-		}
+        virtual QString description( ) = 0;
 
-		virtual void processImage( const cv::Mat &inputImage, cv::Mat &outputImage ) {};
-	};
+        virtual void processImage( const cv::Mat &inputImage, cv::Mat &outputImage ) =0;
+    };
 }
 
 #define CVPLUGININTERFACE_IID "com.amin.cvplugininterfce"

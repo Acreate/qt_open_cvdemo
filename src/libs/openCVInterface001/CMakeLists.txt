@@ -9,11 +9,11 @@ message("============ ${CURRENT_FOLDER}")
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/  )
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/ )
 
+
 # 当前目录下也有代码
-FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h"  )
+FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui" )
 
 add_library(${PROJECT_NAME} SHARED ${SRC_LIST})
-
 target_link_libraries(
 	${PROJECT_NAME} 
 	PRIVATE 
