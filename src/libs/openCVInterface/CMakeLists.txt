@@ -1,8 +1,7 @@
-
-message("============ ${CURRENT_FOLDER}")
-STRING( REGEX REPLACE ".*/(.*)" "\\1" CURRENT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR} )
-message("name =" ${CURRENT_FOLDER})
-project(${CURRENT_FOLDER}  VERSION 0.1 LANGUAGES CXX)
+get_current_dir_name(prject_name ${CMAKE_CURRENT_SOURCE_DIR})
+message("============ ${prject_name}")
+message("name =" ${prject_name})
+project(${prject_name}  VERSION 0.1 LANGUAGES CXX)
 message("============ ${CURRENT_FOLDER}")
 
 

@@ -1,21 +1,19 @@
 
-message("============ ${CURRENT_FOLDER}")
-STRING( REGEX REPLACE ".*/(.*)" "\\1" CURRENT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR} )
-message("name =" ${CURRENT_FOLDER})
-project(${CURRENT_FOLDER}  VERSION 0.1 LANGUAGES CXX)
+get_current_dir_name(prject_name ${CMAKE_CURRENT_SOURCE_DIR})
+message("============ ${prject_name}")
+message("name =" ${prject_name})
+project(${prject_name}  VERSION 0.1 LANGUAGES CXX)
 message("============ ${CURRENT_FOLDER}")
 
 
+## 添加 opencv 头文件
+include_directories(${OpenCV_INCLUDE_DIRS}) 
 include_directories(../libs/openCVInterface) 
-
 
 FIND_PACKAGE( Qt${QT_VERSION_MAJOR}  COMPONENTS Widgets REQUIRED )
 FIND_PACKAGE( Qt${QT_VERSION_MAJOR}  COMPONENTS Gui REQUIRED )
 FIND_PACKAGE( Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED )
 
-FIND_PACKAGE(OpenCV REQUIRED)
-
-include_directories(${OpenCV_INCLUDE_DIRS}) 
 
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui")
