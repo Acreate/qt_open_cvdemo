@@ -6,7 +6,7 @@ project(${CURRENT_FOLDER}  VERSION 0.1 LANGUAGES CXX)
 message("============ ${CURRENT_FOLDER}")
 
 
-include_directories(../libs/openCVInterface) 
+include_directories(../libs/openCVInterface001) 
 
 
 FIND_PACKAGE( Qt${QT_VERSION_MAJOR}  COMPONENTS Widgets REQUIRED )
@@ -35,7 +35,7 @@ else()
 	endif()
 endif()
 
-add_dependencies(${PROJECT_NAME}  openCVInterface)
+add_dependencies(${PROJECT_NAME}  openCVInterface001)
 target_link_libraries(
 	${PROJECT_NAME} 
 PRIVATE 
