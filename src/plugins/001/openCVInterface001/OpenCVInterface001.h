@@ -17,7 +17,7 @@ namespace openCVInterface {
     };
 }
 
-#define CVPLUGININTERFACE_IID "com.amin.cvplugininterfce"
+#define CVPLUGININTERFACE_IID "com.amin.OpenCVInterface001"
 Q_DECLARE_INTERFACE(openCVInterface::CvPluginInterface001, CVPLUGININTERFACE_IID)
 
 #endif // CVPLUGININTERFACE_H_H_HEAD__FILE__

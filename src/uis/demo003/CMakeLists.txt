@@ -58,7 +58,7 @@ set(opencvTarget $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 if(APPLE)
   set(executable_path "$<TARGET_FILE_NAME:${MY_APP}>.app")
 else()
-  set(executable_path "${CMAKE_INSTALL_PREFIX}/$<TARGET_FILE_NAME:${MY_APP}>")
+  set(executable_path "\${QT_DEPLOY_BIN_DIR}/$<TARGET_FILE_NAME:${MY_APP}>")
 endif()
 set(deploy_script "${CMAKE_CURRENT_BINARY_DIR}/deploy_${MY_APP}.cmake")
 
@@ -69,7 +69,7 @@ message(\"=================\")
 include(\"${QT_DEPLOY_SUPPORT}\")
 qt_deploy_runtime_dependencies(
     EXECUTABLE \"${executable_path}\"
-    PLUGINS_DIR .
+    PLUGINS_DIR bin
 )
 execute_process(
 	# opencv DLL 复制
@@ -78,5 +78,5 @@ execute_process(
 	COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${CMAKE_CURRENT_SOURCE_DIR}/test.jpg\" \"${CMAKE_INSTALL_PREFIX}/test.jpg\"
 )
 ")
-install(TARGETS ${MY_APP} DESTINATION ${user_install_last_dir})
+install(TARGETS ${MY_APP} DESTINATION bin)
 install(SCRIPT ${deploy_script})

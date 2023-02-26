@@ -9,7 +9,6 @@ message("============ ${CURRENT_FOLDER}")
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/  )
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/ )
 
-
 ## 插件目录
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../openCVInterface001) 
 
@@ -17,7 +16,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../openCVInterface001)
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui" )
 
 add_library(${PROJECT_NAME} SHARED ${SRC_LIST})
-add_dependencies(${PROJECT_NAME}  openCVInterface001)
 target_link_libraries(
 	${PROJECT_NAME} 
 	PRIVATE 

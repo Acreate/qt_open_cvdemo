@@ -8,7 +8,7 @@
 namespace openCVInterface {
     class MEDIANFILTERPLUGIN001_EXPORT MedianFilterPlugin001 : public QObject, public CvPluginInterface001 {
         Q_OBJECT
-        Q_PLUGIN_METADATA(IID "com.amin.cvplugininterfce")
+        Q_PLUGIN_METADATA(IID "com.amin.OpenCVInterface001")
         Q_INTERFACES(openCVInterface::CvPluginInterface001)
 
     public:

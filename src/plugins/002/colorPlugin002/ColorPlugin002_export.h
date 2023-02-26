@@ -1,0 +1,42 @@
+
+#ifndef COLORPLUGIN002_EXPORT_H
+#define COLORPLUGIN002_EXPORT_H
+
+#ifdef COLORPLUGIN002_STATIC_DEFINE
+#  define COLORPLUGIN002_EXPORT
+#  define COLORPLUGIN002_NO_EXPORT
+#else
+#  ifndef COLORPLUGIN002_EXPORT
+#    ifdef colorPlugin002_EXPORTS
+        /* We are building this library */
+#      define COLORPLUGIN002_EXPORT __declspec(dllexport)
+#    else
+        /* We are using this library */
+#      define COLORPLUGIN002_EXPORT __declspec(dllimport)
+#    endif
+#  endif
+
+#  ifndef COLORPLUGIN002_NO_EXPORT
+#    define COLORPLUGIN002_NO_EXPORT 
+#  endif
+#endif
+
+#ifndef COLORPLUGIN002_DEPRECATED
+#  define COLORPLUGIN002_DEPRECATED __declspec(deprecated)
+#endif
+
+#ifndef COLORPLUGIN002_DEPRECATED_EXPORT
+#  define COLORPLUGIN002_DEPRECATED_EXPORT COLORPLUGIN002_EXPORT COLORPLUGIN002_DEPRECATED
+#endif
+
+#ifndef COLORPLUGIN002_DEPRECATED_NO_EXPORT
+#  define COLORPLUGIN002_DEPRECATED_NO_EXPORT COLORPLUGIN002_NO_EXPORT COLORPLUGIN002_DEPRECATED
+#endif
+
+#if 0 /* DEFINE_NO_DEPRECATED */
+#  ifndef COLORPLUGIN002_NO_DEPRECATED
+#    define COLORPLUGIN002_NO_DEPRECATED
+#  endif
+#endif
+
+#endif /* COLORPLUGIN002_EXPORT_H */

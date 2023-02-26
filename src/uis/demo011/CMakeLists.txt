@@ -6,14 +6,18 @@ project(${CURRENT_FOLDER}  VERSION 0.1 LANGUAGES CXX)
 message("============ ${CURRENT_FOLDER}")
 
 
+## 插件的头文件
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../plugins/002/openCVInterface002) 
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui")
-
+FILE(GLOB TS_FILES  "*.ts")
+list(APPEND SRC_LIST ${TS_FILES})
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 	qt_add_executable( ${PROJECT_NAME}
 		MANUAL_FINALIZATION
 		${SRC_LIST}
 	)
+	qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
 	if(ANDROID)
 		add_library(${PROJECT_NAME} SHARED
@@ -22,9 +26,10 @@ else()
 	else()
 		add_executable(${PROJECT_NAME} ${SRC_LIST})
 	endif()
+    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-add_dependencies(${PROJECT_NAME}  openCVInterface001)
+add_dependencies(${PROJECT_NAME}  openCVInterface002)
 target_link_libraries(
 	${PROJECT_NAME} 
 PRIVATE 
@@ -73,8 +78,9 @@ execute_process(
 	# opencv DLL 复制
     COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${opencv}\" \"${CMAKE_INSTALL_PREFIX}\"
 	# 测试文件 复制
-	COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${CMAKE_CURRENT_SOURCE_DIR}/test.jpg\" \"${CMAKE_INSTALL_PREFIX}/test.jpg\"
+#	COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${CMAKE_CURRENT_SOURCE_DIR}/test.jpg\" \"${CMAKE_INSTALL_PREFIX}/test.jpg\"
 )
 ")
+
 install(TARGETS ${MY_APP} DESTINATION bin)
 install(SCRIPT ${deploy_script})

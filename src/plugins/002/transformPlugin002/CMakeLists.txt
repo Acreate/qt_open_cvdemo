@@ -9,6 +9,9 @@ message("============ ${CURRENT_FOLDER}")
 SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/  )
 SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/filter_plugins/ )
 
+## 插件目录
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../openCVInterface002) 
+
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" "*.ui" )
 
@@ -18,9 +21,9 @@ target_link_libraries(
 	PRIVATE 
 		Qt${QT_VERSION_MAJOR}::Core
 		Qt${QT_VERSION_MAJOR}::Widgets
+		openCVInterface002
 		${OpenCV_LIBS}
 )
-
 STRING(SUBSTRING "${PROJECT_NAME}" 0 1 exportFileStartName)
 STRING(SUBSTRING "${PROJECT_NAME}" 1 -1 exportFileName)
 STRING(TOUPPER ${exportFileStartName} exportFileStartName)
