@@ -7,9 +7,9 @@
 #include <QString>
 
 namespace openCVInterface {
-    class OPENCVINTERFACE001_EXPORT CvPluginInterface001 {
+    class OPENCVINTERFACE001_EXPORT OpenCVInterface001 {
     public:
-        virtual ~CvPluginInterface001( ) = default;
+        virtual ~OpenCVInterface001( ) = default;
 
         virtual QString description( ) = 0;
 
@@ -17,7 +17,8 @@ namespace openCVInterface {
     };
 }
 
-#define CVPLUGININTERFACE_IID "com.amin.OpenCVInterface001"
-Q_DECLARE_INTERFACE(openCVInterface::CvPluginInterface001, CVPLUGININTERFACE_IID)
+
+#define OpenCVInterface001_iid "com.amin.OpenCVInterface001"
+Q_DECLARE_INTERFACE(openCVInterface::OpenCVInterface001, OpenCVInterface001_iid)
 
 #endif // CVPLUGININTERFACE_H_H_HEAD__FILE__

@@ -30,6 +30,13 @@ else()
 endif()
 
 add_dependencies(${PROJECT_NAME}  openCVInterface002)
+add_dependencies(${PROJECT_NAME}  colorPlugin002)
+add_dependencies(${PROJECT_NAME}  copymakeborderPlugin002)
+add_dependencies(${PROJECT_NAME}  filterPlugin002)
+add_dependencies(${PROJECT_NAME}  fourierPlugin002)
+add_dependencies(${PROJECT_NAME}  segmentationPlugin002)
+add_dependencies(${PROJECT_NAME}  templatePlugin002)
+add_dependencies(${PROJECT_NAME}  transformPlugin002)
 target_link_libraries(
 	${PROJECT_NAME} 
 PRIVATE 
@@ -48,6 +55,9 @@ if(QT_VERSION_MAJOR EQUAL 6)
 	qt_finalize_executable(${PROJECT_NAME})
 endif()
 
+add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:opencv_world> "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
+)
 
 #  DLL 复制
 set_target_properties(${PROJECT_NAME}  PROPERTIES
@@ -56,8 +66,6 @@ set_target_properties(${PROJECT_NAME}  PROPERTIES
 )
 
 set(MY_APP ${PROJECT_NAME})
-set(opencv $<TARGET_FILE:opencv_world>)
-set(opencvTarget $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 if(APPLE)
   set(executable_path "$<TARGET_FILE_NAME:${MY_APP}>.app")
 else()
@@ -73,12 +81,6 @@ include(\"${QT_DEPLOY_SUPPORT}\")
 qt_deploy_runtime_dependencies(
     EXECUTABLE \"${executable_path}\"
     PLUGINS_DIR bin
-)
-execute_process(
-	# opencv DLL 复制
-    COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${opencv}\" \"${CMAKE_INSTALL_PREFIX}\"
-	# 测试文件 复制
-#	COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${CMAKE_CURRENT_SOURCE_DIR}/test.jpg\" \"${CMAKE_INSTALL_PREFIX}/test.jpg\"
 )
 ")
 

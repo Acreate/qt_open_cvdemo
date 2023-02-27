@@ -1,5 +1,7 @@
-#ifndef COLOR_PLUGIN_H
-#define COLOR_PLUGIN_H
+#ifndef COLORPLUGIN002_H_H_HEAD__FILE__
+#define COLORPLUGIN002_H_H_HEAD__FILE__
+#pragma once
+
 
 #include "ColorPlugin002_export.h"
 #include <OpenCVInterface002.h>
@@ -13,7 +15,7 @@ namespace Ui {
 namespace openCVInterface {
 	class COLORPLUGIN002_EXPORT ColorPlugin002 : public QObject, public OpenCVInterface002 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID "com.computervision.OpenCVInterface002")
+		Q_PLUGIN_METADATA(IID OpenCVInterface002_iid)
 		Q_INTERFACES(openCVInterface::OpenCVInterface002)
 	public:
 		ColorPlugin002( );

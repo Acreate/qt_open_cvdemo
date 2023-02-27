@@ -1,5 +1,7 @@
-#ifndef TEMPLATE_PLUGIN_H
-#define TEMPLATE_PLUGIN_H
+#ifndef TEMPLATEPLUGIN002_H_H_HEAD__FILE__
+#define TEMPLATEPLUGIN002_H_H_HEAD__FILE__
+#pragma once
+
 
 #include "TemplatePlugin002_export.h"
 #include <OpenCVInterface002.h>
@@ -11,7 +13,7 @@ namespace Ui {
 namespace openCVInterface {
 	class TEMPLATEPLUGIN002_EXPORT TemplatePlugin002 : public QObject, public OpenCVInterface002 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID "com.computervision.OpenCVInterface002")
+		Q_PLUGIN_METADATA(IID OpenCVInterface002_iid)
 		Q_INTERFACES(openCVInterface::OpenCVInterface002)
 
 	public:

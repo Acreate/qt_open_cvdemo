@@ -6,10 +6,10 @@
 #include <OpenCVInterface001.h>
 
 namespace openCVInterface {
-    class MEDIANFILTERPLUGIN001_EXPORT MedianFilterPlugin001 : public QObject, public CvPluginInterface001 {
+    class MEDIANFILTERPLUGIN001_EXPORT MedianFilterPlugin001 : public QObject, public OpenCVInterface001 {
         Q_OBJECT
-        Q_PLUGIN_METADATA(IID "com.amin.OpenCVInterface001")
-        Q_INTERFACES(openCVInterface::CvPluginInterface001)
+        Q_PLUGIN_METADATA(IID OpenCVInterface001_iid)
+        Q_INTERFACES(openCVInterface::OpenCVInterface001)
 
     public:
         explicit MedianFilterPlugin001( QObject *parent = nullptr );

@@ -1,5 +1,6 @@
-#ifndef FOURIER_PLUGIN_H
-#define FOURIER_PLUGIN_H
+#ifndef FOURIERPLUGIN002_H_H_HEAD__FILE__
+#define FOURIERPLUGIN002_H_H_HEAD__FILE__
+#pragma once
 
 #include "FourierPlugin002_export.h"
 #include <OpenCVInterface002.h>
@@ -12,7 +13,7 @@ namespace openCVInterface {
 
 	class FOURIERPLUGIN002_EXPORT FourierPlugin002 : public QObject, public OpenCVInterface002 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID "com.computervision.OpenCVInterface002")
+		Q_PLUGIN_METADATA(IID OpenCVInterface002_iid)
 		Q_INTERFACES(openCVInterface::OpenCVInterface002)
 
 	public:

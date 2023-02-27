@@ -22,7 +22,7 @@ void MainWindow::getPluginsList( ) {
 		QString absoluteFilePath = filter.absoluteFilePath();
 		if( QLibrary::isLibrary(absoluteFilePath) ) {
 			QPluginLoader pluginLoader(absoluteFilePath, this);
-			if( dynamic_cast<openCVInterface::CvPluginInterface001 *>(pluginLoader.instance()) ) {
+			if( dynamic_cast<openCVInterface::OpenCVInterface001 *>(pluginLoader.instance()) ) {
 				ui->filtersList->addItem(filter.fileName());
 				pluginLoader.unload();// we can unload for now
 				qDebug() << "发现插件 : " << absoluteFilePath;
@@ -48,7 +48,7 @@ void MainWindow::on_inputImgButton_pressed( ) {
 void MainWindow::on_helpButton_pressed( ) {
 	if( ui->filtersList->currentRow() >= 0 ) {
 		QPluginLoader pluginLoader(qApp->applicationDirPath() + FILTERS_SUBFOLDER + ui->filtersList->currentItem()->text());
-		openCVInterface::CvPluginInterface001 *plugin = dynamic_cast<openCVInterface::CvPluginInterface001 *>(pluginLoader.instance());
+		openCVInterface::OpenCVInterface001 *plugin = dynamic_cast<openCVInterface::OpenCVInterface001 *>(pluginLoader.instance());
 		if( plugin ) {
 			QMessageBox::information(this, tr("Plugin Description"), plugin->description());
 		} else {
@@ -62,7 +62,7 @@ void MainWindow::on_helpButton_pressed( ) {
 void MainWindow::on_filterButton_pressed( ) {
 	if( ui->filtersList->currentRow() >= 0 && !ui->inputImgEdit->text().isEmpty() ) {
 		QPluginLoader pluginLoader(qApp->applicationDirPath() + FILTERS_SUBFOLDER + ui->filtersList->currentItem()->text());
-		openCVInterface::CvPluginInterface001 *plugin = dynamic_cast<openCVInterface::CvPluginInterface001 *>(pluginLoader.instance());
+		openCVInterface::OpenCVInterface001 *plugin = dynamic_cast<openCVInterface::OpenCVInterface001 *>(pluginLoader.instance());
 		if( plugin ) {
 			if( QFile::exists(ui->inputImgEdit->text()) ) {
 				cv::Mat inputImage, outputImage;

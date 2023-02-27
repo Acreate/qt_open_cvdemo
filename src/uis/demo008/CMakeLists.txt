@@ -43,15 +43,19 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 
 
+add_custom_command( TARGET ${PROJECT_NAME} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_FILE:opencv_world> "$<TARGET_FILE_DIR:${PROJECT_NAME}>"
+)
+
+
 #  DLL 复制
 set_target_properties(${PROJECT_NAME}  PROPERTIES
      WIN32_EXECUTABLE TRUE
      MACOSX_BUNDLE TRUE
 )
 
+
 set(MY_APP ${PROJECT_NAME})
-set(opencv $<TARGET_FILE:opencv_world>)
-set(opencvTarget $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 if(APPLE)
   set(executable_path "$<TARGET_FILE_NAME:${MY_APP}>.app")
 else()
@@ -67,12 +71,6 @@ include(\"${QT_DEPLOY_SUPPORT}\")
 qt_deploy_runtime_dependencies(
     EXECUTABLE \"${executable_path}\"
     PLUGINS_DIR bin
-)
-execute_process(
-	# opencv DLL 复制
-    COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${opencv}\" \"${CMAKE_INSTALL_PREFIX}\"
-	# 测试文件 复制
-	COMMAND \${CMAKE_COMMAND} -E copy_if_different \"${CMAKE_CURRENT_SOURCE_DIR}/test.jpg\" \"${CMAKE_INSTALL_PREFIX}/test.jpg\"
 )
 ")
 install(TARGETS ${MY_APP} DESTINATION bin)

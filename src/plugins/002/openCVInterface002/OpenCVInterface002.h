@@ -23,8 +23,8 @@ namespace openCVInterface {
 
 }
 
-#define CVPLUGININTERFACE_IID "com.computervision.OpenCVInterface002"
-Q_DECLARE_INTERFACE(openCVInterface::OpenCVInterface002, CVPLUGININTERFACE_IID)
+#define OpenCVInterface002_iid "com.computervision.OpenCVInterface002"
+Q_DECLARE_INTERFACE(openCVInterface::OpenCVInterface002, OpenCVInterface002_iid)
 
 
 #endif // OPENCVINTERFACE002_H_H_HEAD__FILE__

@@ -1,5 +1,6 @@
-#ifndef SEGMENTATION_PLUGIN_H
-#define SEGMENTATION_PLUGIN_H
+#ifndef SEGMENTATIONPLUGIN002_H_H_HEAD__FILE__
+#define SEGMENTATIONPLUGIN002_H_H_HEAD__FILE__
+#pragma once
 
 #include <OpenCVInterface002.h>
 #include "SegmentationPlugin002_export.h"
@@ -11,7 +12,7 @@ namespace Ui {
 namespace openCVInterface {
 	class SEGMENTATIONPLUGIN002_EXPORT SegmentationPlugin002 : public QObject, public openCVInterface::OpenCVInterface002 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID "com.computervision.OpenCVInterface002")
+		Q_PLUGIN_METADATA(IID OpenCVInterface002_iid)
 		Q_INTERFACES(openCVInterface::OpenCVInterface002)
 
 	public:

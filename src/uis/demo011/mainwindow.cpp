@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #define PLUGINS_SUBFOLDER                   "/cvplugins/"
@@ -66,34 +66,33 @@ void MainWindow::populatePluginsMenu( ) {
 	QDir pluginsDir(qApp->applicationDirPath() + PLUGINS_SUBFOLDER);
 	QFileInfoList pluginFiles = pluginsDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files, QDir::Name);
 	foreach(QFileInfo pluginFile, pluginFiles) {
-		if( QLibrary::isLibrary(pluginFile.absoluteFilePath()) ) {
-			QPluginLoader pluginLoader(pluginFile.absoluteFilePath(), this);
-			if( openCVInterface::OpenCVInterface002 *plugin = dynamic_cast<openCVInterface::OpenCVInterface002 *>(pluginLoader.instance()) ) {
-				QAction *pluginAction = ui->menu_Plugins->addAction(plugin->title());
-				pluginAction->setProperty(FILE_ON_DISK_DYNAMIC_PROPERTY, pluginFile.absoluteFilePath());
-				connect(pluginAction, SIGNAL(triggered(bool)), this, SLOT(onPluginActionTriggered(bool)));
-				if( currentPluginFile == pluginFile.absoluteFilePath() ) {
-					pluginAction->trigger();
-				}
-			} else {
+		QString absoluteFilePath = pluginFile.absoluteFilePath();
+		if( QLibrary::isLibrary(absoluteFilePath) ) {
+			QPluginLoader pluginLoader(absoluteFilePath, this);
+			if( !pluginLoader.load() ) {
 				QMessageBox::warning(this, tr("Warning"),
-					QString(tr("Make sure %1 is a correct plugin for this application<br>"
-						"and it's not in use by some other application!")).arg(pluginFile.fileName()));
+					QString(tr("%1 无法加载")).arg(pluginFile.fileName()));
+			} else {
+				QObject *instance = pluginLoader.instance();
+				openCVInterface::OpenCVInterface002 *plugin = dynamic_cast<openCVInterface::OpenCVInterface002 *>(instance);
+				if( plugin ) {
+					QAction *pluginAction = ui->menu_Plugins->addAction(plugin->title());
+					pluginAction->setProperty(FILE_ON_DISK_DYNAMIC_PROPERTY, absoluteFilePath);
+					connect(pluginAction, SIGNAL(triggered(bool)), this, SLOT(onPluginActionTriggered(bool)));
+					if( currentPluginFile == absoluteFilePath ) {
+						pluginAction->trigger();
+					}
+				} else {
+					QMessageBox::warning(this, tr("Warning"),
+						QString(tr("%1 虽然是个 dll，但是并不是一个插件")).arg(pluginFile.fileName()));
+				}
 			}
-		} else {
-			QMessageBox::warning(this, tr("Warning"),
-				QString(tr("Make sure only plugins exist in %1 folder.<br>"
-					"%2 is not a plugin."))
-				.arg(PLUGINS_SUBFOLDER)
-				.arg(pluginFile.fileName()));
 		}
 	}
 
 	if( ui->menu_Plugins->actions().count() <= 0 ) {
-		QMessageBox::critical(this, tr("No Plugins"), QString(tr("This application cannot work without plugins!"
-			"<br>Make sure that %1 folder exists "
-			"in the same folder as the application<br>and that "
-			"there are some filter plugins inside it")).arg(PLUGINS_SUBFOLDER));
+		QMessageBox::critical(this, tr("No Plugins"), QString(tr("%1 目录找不到插件")).arg(PLUGINS_SUBFOLDER));
+		qApp->exit(-1);
 		this->setEnabled(false);
 	}
 }

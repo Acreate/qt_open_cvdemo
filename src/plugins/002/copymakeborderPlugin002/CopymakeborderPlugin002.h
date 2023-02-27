@@ -1,5 +1,8 @@
-#ifndef COPYMAKEBORDER_PLUGIN_H
-#define COPYMAKEBORDER_PLUGIN_H
+
+#ifndef COPYMAKEBORDERPLUGIN002_H_H_HEAD__FILE__
+#define COPYMAKEBORDERPLUGIN002_H_H_HEAD__FILE__
+#pragma once
+
 
 #include <QObject>
 
@@ -16,7 +19,7 @@ namespace Ui {
 namespace openCVInterface {
 	class COPYMAKEBORDERPLUGIN002_EXPORT CopymakeborderPlugin002 : public QObject, public OpenCVInterface002 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID "com.computervision.OpenCVInterface002")
+		Q_PLUGIN_METADATA(IID OpenCVInterface002_iid)
 		Q_INTERFACES(openCVInterface::OpenCVInterface002)
 
 	public:

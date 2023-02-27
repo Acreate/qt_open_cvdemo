@@ -37,6 +37,7 @@ get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/uis "CMakeLi
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/libs "CMakeLists.txt")
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/plugins/001 "CMakeLists.txt")
 get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/plugins/002 "CMakeLists.txt")
+get_current_path_dirs(out_path_list ${CMAKE_CURRENT_SOURCE_DIR}/src/res "CMakeLists.txt")
 foreach(out_dir ${out_path_list})
 	string(REPLACE ${CMAKE_SOURCE_DIR}/ "./" out_path ${out_dir})
 	message(STATUS "正在添加路径 :\t" ${out_path})

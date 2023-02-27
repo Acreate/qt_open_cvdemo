@@ -1,7 +1,21 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include <OpenCVInterface002.h>
 #define FILTERS_SUBFOLDER "/filter_plugins/"
+#define PLUGINS_SUBFOLDER "/cvplugins/"
+// 决定是否使用后期插件
+#if 1
+
+#define Ing_Subfolder FILTERS_SUBFOLDER
+using InterFace = openCVInterface::OpenCVInterface001;
+
+#else
+
+#define Ing_Subfolder PLUGINS_SUBFOLDER
+using InterFace = openCVInterface::OpenCVInterface002;
+
+#endif
+
 
 MainWindow::MainWindow( QWidget *parent ) :
 	QMainWindow(parent),
@@ -15,34 +29,26 @@ MainWindow::~MainWindow( ) {
 }
 
 void MainWindow::getPluginsList( ) {
-	QString currentPath = qApp->applicationDirPath() + FILTERS_SUBFOLDER;
+	QString currentPath = qApp->applicationDirPath() + Ing_Subfolder;
 	QDir filtersDir(currentPath);
 	QFileInfoList filters = filtersDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files, QDir::Name);
 	foreach(QFileInfo filter, filters) {
 		QString absoluteFilePath = filter.absoluteFilePath();
 		if( QLibrary::isLibrary(absoluteFilePath) ) {
 			QPluginLoader pluginLoader(absoluteFilePath, this);
-			if( dynamic_cast<openCVInterface::CvPluginInterface001 *>(pluginLoader.instance()) ) {
-				ui->filtersList->addItem(filter.fileName());
-				pluginLoader.unload();// we can unload for now
-				qDebug() << "发现插件 : " << absoluteFilePath;
-			} else {
-				QMessageBox::warning(this,
-					tr("Warning"),
-					QString(tr("%1 虽然它是一个库，但并不是一个插件")).arg(filter.fileName()));
-			}
-		} else {
-			QMessageBox::warning(this,
-				tr("Warning"),
-				QString(tr("%1 它甚至不是一个库！")).arg(filter.fileName()));
+			QObject *instance = pluginLoader.instance();
+			if( instance ) {
+				qDebug() << "可以实例话的插件 : " << absoluteFilePath;
+				auto *openCvInterface = dynamic_cast<InterFace *>(instance);
+				if( openCvInterface ) {
+					ui->filtersList->addItem(filter.fileName());
+					pluginLoader.unload();// we can unload for now
+					qDebug() << "发现插件 : " << absoluteFilePath;
+				} else
+					qDebug() << "无法转换 : " << absoluteFilePath;
+			} else
+				qDebug() << "无法实例话的插件 : " << absoluteFilePath;
 		}
-	}
-
-	if( ui->filtersList->count() <= 0 ) {
-		QMessageBox::critical(this,
-			tr("No Plugins"),
-			tr("找不到任何一个插件，请注意路径"));
-		this->setEnabled(false);
 	}
 }
 
@@ -55,8 +61,8 @@ void MainWindow::on_inputImgButton_pressed( ) {
 
 void MainWindow::on_helpButton_pressed( ) {
 	if( ui->filtersList->currentRow() >= 0 ) {
-		QPluginLoader pluginLoader(qApp->applicationDirPath() + FILTERS_SUBFOLDER + ui->filtersList->currentItem()->text());
-		openCVInterface::CvPluginInterface001 *plugin = dynamic_cast<openCVInterface::CvPluginInterface001 *>(pluginLoader.instance());
+		QPluginLoader pluginLoader(qApp->applicationDirPath() + Ing_Subfolder + ui->filtersList->currentItem()->text());
+		auto *plugin = dynamic_cast<InterFace *>(pluginLoader.instance());
 		if( plugin ) {
 			QMessageBox::information(this, tr("Plugin Description"), plugin->description());
 		} else {
@@ -69,8 +75,8 @@ void MainWindow::on_helpButton_pressed( ) {
 
 void MainWindow::on_filterButton_pressed( ) {
 	if( ui->filtersList->currentRow() >= 0 && !ui->inputImgEdit->text().isEmpty() ) {
-		QPluginLoader pluginLoader(qApp->applicationDirPath() + FILTERS_SUBFOLDER + ui->filtersList->currentItem()->text());
-		openCVInterface::CvPluginInterface001 *plugin = dynamic_cast<openCVInterface::CvPluginInterface001 *>(pluginLoader.instance());
+		QPluginLoader pluginLoader(qApp->applicationDirPath() + Ing_Subfolder + ui->filtersList->currentItem()->text());
+		auto *plugin = dynamic_cast<InterFace *>(pluginLoader.instance());
 		if( plugin ) {
 			if( QFile::exists(ui->inputImgEdit->text()) ) {
 				using namespace cv;

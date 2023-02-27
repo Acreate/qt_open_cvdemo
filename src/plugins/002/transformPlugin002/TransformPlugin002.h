@@ -1,5 +1,9 @@
-#ifndef TRANSFORM_PLUGIN_H
-#define TRANSFORM_PLUGIN_H
+
+#ifndef TRANSFORMPLUGIN002_H_H_HEAD__FILE__
+#define TRANSFORMPLUGIN002_H_H_HEAD__FILE__
+#pragma once
+
+
 #include "TransformPlugin002_export.h"
 #include <OpenCVInterface002.h>
 #include <QObject>
@@ -12,7 +16,7 @@ namespace Ui {
 namespace openCVInterface {
 	class TRANSFORMPLUGIN002_EXPORT TransformPlugin002 : public QObject, public openCVInterface::OpenCVInterface002 {
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID "com.computervision.OpenCVInterface002")
+		Q_PLUGIN_METADATA(IID OpenCVInterface002_iid)
 		Q_INTERFACES(openCVInterface::OpenCVInterface002)
 
 	public:
