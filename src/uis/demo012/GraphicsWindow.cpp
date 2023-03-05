@@ -10,6 +10,7 @@
 #include <QImage>
 #include <opencv2/imgproc/types_c.h>
 #include <opencv2/opencv.hpp>
+#include <ConverQimageOrCvMat.h>
 
 GraphicsWindow::GraphicsWindow( QWidget *parent ): QMainWindow(parent) {
 	view = new QGraphicsView(this);
@@ -52,28 +53,36 @@ GraphicsWindow::GraphicsWindow( QWidget *parent ): QMainWindow(parent) {
 			return;
 		// 获取图片
 		QPixmap orgPixmap = graphicsPixmapItem->pixmap();
-		// 转换到 rgb
-		QImage image = orgPixmap.toImage().convertToFormat(QImage::Format_RGB888);
-		// r 与 b 互换
-		image.rgbSwap();
+		cv::Mat mat = ConverQimageOrCvMat::conver(orgPixmap.toImage());
+		//// 转换到 rgb
+		//QImage image = orgPixmap.toImage();
+		//// 转换到标准 rgb888 格式
+		//image = image.convertToFormat(QImage::Format_RGB888);
+		//// r 与 b 互换
+		//image.rgbSwap();
+		//// 转换到 opengcv 的 Mat
+		//cv::Mat mat = cv::Mat(image.height(), image.width(), CV_8UC3, image.bits(), image.bytesPerLine());
+		//================
+		// 获取匹配图像
 		cv::Mat readFile = cv::imread(filePath[0].toStdString());
-		// 转换到 opengcv 的 Mat
-		cv::Mat mat = cv::Mat(image.height(), image.width(), CV_8UC3, image.bits(), image.bytesPerLine());
 		// 匹配图像
 		cv::Mat outResult;
 		cv::matchTemplate(mat, readFile, outResult, cv::TM_CCORR_NORMED);
 		// 查找匹配位置
-
 		double minVal, maxVal;
 		cv::Point minLoc, maxLoc;
 		cv::minMaxLoc(outResult, &minVal, &maxVal, &minLoc, &maxLoc);
+		// 绘制匹配位置
 		cv::rectangle(mat,
 			cv::Rect(maxLoc.x, maxLoc.y, readFile.cols, readFile.rows),
 			cv::Scalar(255, 255, 255),
 			2
 			);
-		cv::cvtColor(mat, mat, CV_BGR2RGB);
-		QPixmap pixmap = QPixmap::fromImage(QImage(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888));
+
+		QPixmap pixmap = QPixmap::fromImage(ConverQimageOrCvMat::conver(mat));
+		//// 转换到 QImage
+		//cv::cvtColor(mat, mat, CV_BGR2RGB);
+		//QPixmap pixmap = QPixmap::fromImage(QImage(mat.data, mat.cols, mat.rows, mat.step, QImage::Format_RGB888));
 		graphicsPixmapItem->setPixmap(pixmap);
 	});
 }

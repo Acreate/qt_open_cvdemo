@@ -5,7 +5,7 @@ message("name =" ${CURRENT_FOLDER})
 project(${CURRENT_FOLDER}  VERSION 0.1 LANGUAGES CXX)
 message("============ ${CURRENT_FOLDER}")
 
-
+include_directories(../lib/converQimageOrCvMat)
 # 当前目录下也有代码
 FILE(GLOB SRC_LIST "*.cpp" "*.c" "*.hpp" "*.h" )
 # FILE(GLOB TS_FILES  "*.ts")
@@ -35,6 +35,7 @@ PRIVATE
 	Qt${QT_VERSION_MAJOR}::Widgets
 	Qt${QT_VERSION_MAJOR}::Core
 	${OpenCV_LIBS}
+	converQimageOrCvMat
 )
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
